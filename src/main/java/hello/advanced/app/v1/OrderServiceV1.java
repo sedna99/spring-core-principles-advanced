@@ -10,13 +10,9 @@ import org.springframework.stereotype.Service;
 public class OrderServiceV1 {
 
     private final OrderRepositoryV1 orderRepository;
-//    private final HelloTraceV1 trace;
+    private final HelloTraceV1 trace;
 
     public void orderItem(String itemId) throws InterruptedException {
-        orderRepository.save(itemId);
-    }
-
-    /*public void orderItem(String itemId) throws InterruptedException {
         TraceStatus status = trace.begin("OrderService.orderItem");
         try {
             orderRepository.save(itemId);
@@ -25,5 +21,5 @@ public class OrderServiceV1 {
             trace.exception(status, e);
             throw e; //예외를 던져야함
         }
-    }*/
+    }
 }
