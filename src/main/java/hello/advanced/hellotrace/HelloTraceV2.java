@@ -15,14 +15,16 @@ public class HelloTraceV2 {
     public TraceStatus begin(String message) {
         TraceId traceId = new TraceId();
         Long startTimeMs = System.currentTimeMillis();
-        log.info("traceId={}, message={}", traceId, message);
+        log.info("[" + traceId.getId() + "] " + addSpace(START_PREFIX,
+                traceId.getLevel()) + message);
         return new TraceStatus(traceId, startTimeMs, message);
     }
 
     public TraceStatus beginSync(TraceId beforeTraceId, String message) {
         TraceId nextId = beforeTraceId.createNextId();
         Long startTimeMs = System.currentTimeMillis();
-        log.info("traceId={}, message={}", nextId, message);
+        log.info("[" + nextId.getId() + "] " + addSpace(START_PREFIX,
+                nextId.getLevel()) + message);
         return new TraceStatus(nextId, startTimeMs, message);
     }
 
