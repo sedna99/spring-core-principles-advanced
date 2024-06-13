@@ -1,6 +1,7 @@
 package hello.advanced.strategy;
 
 import hello.advanced.strategy.code.ContextV1;
+import hello.advanced.strategy.code.Strategy;
 import hello.advanced.strategy.code.StrategyLogic1;
 import hello.advanced.strategy.code.StrategyLogic2;
 import lombok.extern.slf4j.Slf4j;
@@ -39,5 +40,40 @@ public class ContextV1Test {
         StrategyLogic2 logic2 = new StrategyLogic2();
         contextV1 = new ContextV1(logic2);
         contextV1.execute();
+    }
+
+    @Test
+    void strategyV2() {
+        Strategy strategy1 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직1 실행");
+            }
+        };
+        ContextV1 contextV1 = new ContextV1(strategy1);
+        log.info("strategy1: {}", strategy1.getClass());
+        contextV1.execute();
+
+        Strategy strategy2 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직2 실행");
+            }
+        };
+        ContextV1 contextV2 = new ContextV1(strategy2);
+        log.info("strategy2: {}", strategy2.getClass());
+        contextV2.execute();
+    }
+
+    @Test
+    void strategyV3() {
+        ContextV1 contextx = new ContextV1(() -> {
+            log.info("비즈니스 로직1 실행");
+        });
+        ContextV1 contexty = new ContextV1(() -> {
+            log.info("비즈니스 로직2 실행");
+        });
+        contextx.execute();
+        contexty.execute();
     }
 }
